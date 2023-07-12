@@ -13,6 +13,7 @@
   <depend>rclcpp_components</depend>
   <depend>sensor_msgs</depend>
   <depend>tf2_msgs</depend>
+  <depend>std_msgs</depend>
   <depend>tf2_ros</depend>
   <depend>image_transport</depend>
   <depend>image_geometry</depend>
@@ -21,6 +22,8 @@
   <depend>apriltag_msgs</depend>
   <depend>eigen</depend>
   <depend>apriltag</depend>
+  <depend>generate_parameter_library</depend>
+
 
   <test_depend>ament_lint_auto</test_depend>
   <test_depend>ament_lint_common</test_depend>

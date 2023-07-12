@@ -18,6 +18,8 @@ find_package(Eigen3 REQUIRED)
 find_package(OpenCV REQUIRED)
 find_package(Threads REQUIRED)
 find_package(apriltag REQUIRED)
+find_package(std_msgs REQUIRED)
+find_package(generate_parameter_library REQUIRED)
 
 include_directories(include ${EIGEN3_INCLUDE_DIR})
 
@@ -25,11 +27,16 @@ add_executable(tag_detector src/AprilTagNode.cpp)
 
 add_library(AprilTagNode SHARED src/AprilTagNode.cpp)
 
+generate_parameter_library(shr_aptag_parameters
+        src/shr_aptag_parameters.yaml
+        )
+
 set(DEPENDENCIES
     "rclcpp"
     "rclcpp_components"
     "sensor_msgs"
     "tf2_msgs"
+    "std_msgs"
     "tf2_ros"
     "image_transport"
     "image_geometry"
@@ -39,6 +46,12 @@ set(DEPENDENCIES
     "Eigen3"
     "apriltag"
 )
+
+add_executable(tf_broadcaster_node src/tf_broadcaster.cpp)
+ament_target_dependencies(tf_broadcaster_node ${DEPENDENCIES})
+target_link_libraries(tf_broadcaster_node
+        shr_aptag_parameters
+        )
 
 ament_target_dependencies(AprilTagNode ${DEPENDENCIES})
 ament_target_dependencies(tag_detector ${DEPENDENCIES})
@@ -55,6 +68,12 @@ install(TARGETS AprilTagNode
     ARCHIVE DESTINATION lib
     LIBRARY DESTINATION lib
 )
+
+install(TARGETS tf_broadcaster_node
+        EXPORT export_${PROJECT_NAME}
+        ARCHIVE DESTINATION lib
+        LIBRARY DESTINATION lib
+        )
 
 install(TARGETS tag_detector
     EXPORT export_${PROJECT_NAME}

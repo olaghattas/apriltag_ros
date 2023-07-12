@@ -84,6 +84,7 @@ private:
   std::unordered_map<int, std::string> tag_frames;
   std::unordered_map<int, double> tag_sizes;
   std::unique_ptr<tf2_ros::TransformBroadcaster> tf_broadcaster_;
+  rclcpp::Clock clock_;
 
   bool remove_duplicates_ = true;
   bool z_up;
