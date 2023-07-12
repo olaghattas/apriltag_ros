@@ -177,7 +177,7 @@ public:
     std::string id_;
     double pos_x_;
     double pos_y_;
-    cv::Mat quat_ = quat;
+    cv::Mat quat_;
 };
 
 int main(int argc, char **argv) {
