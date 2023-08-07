@@ -15,4 +15,4 @@ refine-edges: 1         # snap to strong gradients
 debug: 0                # write additional debugging images to current working directory
 tag_ids: [0, 1, 2, 3, 4, 5, 6, 7, 8]            # tag ID
 tag_frames: [tag_0, tag_1, tag_2, tag_3, tag_4, tag_5, tag_6, tag_7, tag_8 ]  # optional frame name
-tag_sizes: [ 0.14,  0.14, 0.14, 0.14, 0.14, 0.14, 0.14, 0.14]   # optional tag-specific edge size in meters
+tag_sizes: [ 0.14,  0.14, 0.14, 0.14, 0.14, 0.14, 0.14, 0.14, 0.14]   # optional tag-specific edge size in meters
