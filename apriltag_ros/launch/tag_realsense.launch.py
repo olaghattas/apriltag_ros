@@ -38,7 +38,7 @@ image_topic_ = LaunchConfiguration("image_topic", default="image_raw")
 camera_name = LaunchConfiguration("camera_name", default="/camera/color")
 
 image_topic = [camera_name, "/", image_topic_]
-info_topic = [camera_name, "/camera_info"]
+# info_topic = [camera_name, "/camera_info"]
 config = os.path.join(
     get_package_share_directory("apriltag_ros"), "cfg", "tags_36h11_hewithall.yaml"
 )
@@ -51,7 +51,7 @@ def generate_launch_description():
         package="apriltag_ros",
         plugin="AprilTagNode",
         parameters=[config],
-        remappings=[("/image", image_topic), ("/camera_info", info_topic)],
+        remappings=[("/image", image_topic)],
     )
 
     container = ComposableNodeContainer(

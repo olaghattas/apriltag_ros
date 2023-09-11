@@ -3,16 +3,19 @@
 #
 image_transport: 'raw'    # image format
 family: '36h11'           # tag family name
-size: 0.08
-threads: 2
+size: 0.08                # default tag size
+threads: 4
 max_hamming: 0          # maximum allowed hamming distance (corrected bits)
 z_up: true              # rotate about x-axis to have Z pointing upwards
 
 # see "apriltag.h" for more documentation on these optional parameters
-decimate: 1.0           # decimate resolution for quad detection
+decimate: 0.0           # decimate resolution for quad detection
 blur: 1.0               # sigma of Gaussian blur for quad detection
 refine-edges: 1         # snap to strong gradients
 debug: 0                # write additional debugging images to current working directory
+tag_ids: [202, 203]            # tag ID
+tag_frames: [tag_202, tag_203]  # optional frame name
+tag_sizes: [ 0.09,  0.09]   # optional tag-specific edge size in meters
 
 # camera information
 camera_fx: 921.6875610351562

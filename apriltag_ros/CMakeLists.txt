@@ -47,6 +47,8 @@ set(DEPENDENCIES
     "apriltag"
 )
 
+#add_library(aptag_one_image src/ApriltagOneImage.cpp)
+
 add_executable(tf_broadcaster_node src/tf_broadcaster.cpp)
 ament_target_dependencies(tf_broadcaster_node ${DEPENDENCIES})
 target_link_libraries(tf_broadcaster_node
