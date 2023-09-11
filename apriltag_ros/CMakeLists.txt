@@ -47,13 +47,6 @@ set(DEPENDENCIES
     "apriltag"
 )
 
-#add_library(aptag_one_image src/ApriltagOneImage.cpp)
-
-add_executable(tf_broadcaster_node src/tf_broadcaster.cpp)
-ament_target_dependencies(tf_broadcaster_node ${DEPENDENCIES})
-target_link_libraries(tf_broadcaster_node
-        shr_aptag_parameters
-        )
 
 ament_target_dependencies(AprilTagNode ${DEPENDENCIES})
 ament_target_dependencies(tag_detector ${DEPENDENCIES})
@@ -70,12 +63,6 @@ install(TARGETS AprilTagNode
     ARCHIVE DESTINATION lib
     LIBRARY DESTINATION lib
 )
-
-install(TARGETS tf_broadcaster_node
-        EXPORT export_${PROJECT_NAME}
-        ARCHIVE DESTINATION lib
-        LIBRARY DESTINATION lib
-        )
 
 install(TARGETS tag_detector
     EXPORT export_${PROJECT_NAME}
