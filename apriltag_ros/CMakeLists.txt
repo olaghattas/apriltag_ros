@@ -19,7 +19,6 @@ find_package(OpenCV REQUIRED)
 find_package(Threads REQUIRED)
 find_package(apriltag REQUIRED)
 find_package(std_msgs REQUIRED)
-find_package(generate_parameter_library REQUIRED)
 
 include_directories(include ${EIGEN3_INCLUDE_DIR})
 
@@ -27,9 +26,6 @@ add_executable(tag_detector src/AprilTagNode.cpp)
 
 add_library(AprilTagNode SHARED src/AprilTagNode.cpp)
 
-generate_parameter_library(shr_aptag_parameters
-        src/shr_aptag_parameters.yaml
-        )
 
 set(DEPENDENCIES
     "rclcpp"
