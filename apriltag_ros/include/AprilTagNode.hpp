@@ -1,5 +1,3 @@
-
-
 #pragma once
 // C Headers
 #include <apriltag.h>
@@ -51,11 +49,11 @@ private:
     void addObjectPoints(double s, cv::Matx44d T_oi, std::vector<cv::Point3d> &objectPoints) const;
     void addImagePoints(apriltag_detection_t *detection, std::vector<cv::Point2d> &imagePoints) const;
     Eigen::Matrix4d getRelativeTransform(
-        std::vector<cv::Point3d> objectPoints, std::vector<cv::Point2d> imagePoints, double fx, double fy,
-        double cx, double cy) const;
+            std::vector<cv::Point3d> objectPoints, std::vector<cv::Point2d> imagePoints, double fx, double fy,
+            double cx, double cy) const;
     geometry_msgs::msg::TransformStamped makeTagPose(
-        const Eigen::Matrix4d &transform, const Eigen::Quaternion<double> rot_quaternion,
-        const std_msgs::msg::Header &header);
+            const Eigen::Matrix4d &transform, const Eigen::Quaternion<double> rot_quaternion,
+            const std_msgs::msg::Header &header);
 
     image_transport::Subscriber sub_cam;
     rclcpp::Publisher<apriltag_msgs::msg::AprilTagDetectionArray>::SharedPtr pub_detections;
@@ -71,6 +69,11 @@ private:
     int max_hamming;
     bool z_up;
     bool remove_duplicates_;
+    double camera_fx;
+    double camera_fy;
+    double camera_cx;
+    double camera_cy;
+
 
     std::map<int, std::string> tag_frames;
     std::map<int, double> tag_sizes;
@@ -78,5 +81,4 @@ private:
 
     rclcpp::TimerBase::SharedPtr timer_;
 };
-
 

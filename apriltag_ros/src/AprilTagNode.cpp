@@ -169,7 +169,7 @@ void AprilTagNode::onCamera(const sensor_msgs::msg::Image::ConstSharedPtr &msg_i
     };
 
     double fx = camera_fx;  // focal length in camera x-direction [px]
-    double fy = camera_fx;  // focal length in camera y-direction [px]
+    double fy = camera_fy;  // focal length in camera y-direction [px]
     double cx = camera_cx;  // optical center x-coordinate [px]
     double cy = camera_cy;  // optical center y-coordinate [px]
 
