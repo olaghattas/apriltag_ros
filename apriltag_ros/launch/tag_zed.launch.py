@@ -34,13 +34,13 @@ import os
 from ament_index_python.packages import get_package_share_directory
 from launch.substitutions import LaunchConfiguration
 
-image_topic_ = LaunchConfiguration("image_topic", default="image_raw")
-camera_name = LaunchConfiguration("camera_name", default="/camera/camera/color")
+image_topic_ = LaunchConfiguration("image_topic", default="image_rect_color")
+camera_name = LaunchConfiguration("camera_name", default="/zed2i/zed_node/right")
 
 image_topic = [camera_name, "/", image_topic_]
 # info_topic = [camera_name, "/camera_info"]
 config = os.path.join(
-    get_package_share_directory("apriltag_ros"), "cfg", "apriltag_docking.yaml"
+    get_package_share_directory("apriltag_ros"), "cfg", "tags_36h11_hewithall_zed.yaml"
     # get_package_share_directory("apriltag_ros"), "cfg", "tags_36h11_ap.yaml"
 )
 

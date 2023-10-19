@@ -57,22 +57,22 @@ const std::map<std::string, void (*)(apriltag_family_t *)> AprilTagNode::tag_des
         TAG_DESTROY(Standard52h13)};
 
 AprilTagNode::AprilTagNode(rclcpp::NodeOptions options)
-    : Node("apriltag", options.use_intra_process_comms(true)),
-      td(apriltag_detector_create()),
-      tag_family(declare_parameter<std::string>("family", "36h11")),
-      tag_edge_size(declare_parameter<double>("size", 2.0)),
-      max_hamming(declare_parameter<int>("max_hamming", 0)),
-      z_up(declare_parameter<bool>("z_up", true)),
-      camera_fx(declare_parameter<double>("camera_fx", 921.6875610351562)),
-      camera_fy(declare_parameter<double>("camera_fy", 921.7409057617188)),
-      camera_cx(declare_parameter<double>("camera_cx", 639.358154296875)),
-      camera_cy(declare_parameter<double>("camera_cy", 363.2638854980469)),
-      sub_cam(image_transport::create_subscription(
-          this, "image",
-          std::bind(&AprilTagNode::onCamera, this, std::placeholders::_1),
-          declare_parameter<std::string>("image_transport", "raw"), rmw_qos_profile_default)),
-      pub_detections(create_publisher<apriltag_msgs::msg::AprilTagDetectionArray>(
-          "apriltag_detections", rclcpp::QoS(10))) {
+        : Node("apriltag", options.use_intra_process_comms(true)),
+          td(apriltag_detector_create()),
+          tag_family(declare_parameter<std::string>("family", "36h11")),
+          tag_edge_size(declare_parameter<double>("size", 2.0)),
+          max_hamming(declare_parameter<int>("max_hamming", 0)),
+          z_up(declare_parameter<bool>("z_up", true)),
+          camera_fx(declare_parameter<double>("camera_fx", 921.6875610351562)),
+          camera_fy(declare_parameter<double>("camera_fy", 921.7409057617188)),
+          camera_cx(declare_parameter<double>("camera_cx", 639.358154296875)),
+          camera_cy(declare_parameter<double>("camera_cy", 363.2638854980469)),
+          sub_cam(image_transport::create_subscription(
+                  this, "image",
+                  std::bind(&AprilTagNode::onCamera, this, std::placeholders::_1),
+                  declare_parameter<std::string>("image_transport", "raw"), rmw_qos_profile_default)),
+          pub_detections(create_publisher<apriltag_msgs::msg::AprilTagDetectionArray>(
+                  "apriltag_detections", rclcpp::QoS(10))) {
     clock_ = rclcpp::Clock(rcl_clock_type_e::RCL_ROS_TIME);
     td->quad_decimate = declare_parameter<float>("decimate", 1.0);
     td->quad_sigma = declare_parameter<float>("blur", 0.0);
@@ -87,8 +87,8 @@ AprilTagNode::AprilTagNode(rclcpp::NodeOptions options)
     if (!frames.empty()) {
         if (ids.size() != frames.size()) {
             throw std::runtime_error(
-                "Number of tag ids (" + std::to_string(ids.size()) + ") and frames (" +
-                std::to_string(frames.size()) + ") mismatch!");
+                    "Number of tag ids (" + std::to_string(ids.size()) + ") and frames (" +
+                    std::to_string(frames.size()) + ") mismatch!");
         }
         for (size_t i = 0; i < ids.size(); i++) {
             tag_frames[ids[i]] = frames[i];
@@ -98,8 +98,8 @@ AprilTagNode::AprilTagNode(rclcpp::NodeOptions options)
     if (!sizes.empty()) {
         if (ids.size() != sizes.size()) {
             throw std::runtime_error(
-                "Number of tag ids (" + std::to_string(ids.size()) + ") and sizes (" +
-                std::to_string(sizes.size()) + ") mismatch!");
+                    "Number of tag ids (" + std::to_string(ids.size()) + ") and sizes (" +
+                    std::to_string(sizes.size()) + ") mismatch!");
         }
         for (size_t i = 0; i < ids.size(); i++) {
             tag_sizes[ids[i]] = sizes[i];
@@ -146,10 +146,10 @@ void AprilTagNode::removeDuplicates(zarray_t *detections_) {
             zarray_remove_index(detections_, count, shuffle);
             if (id_current != id_next) {
                 RCLCPP_WARN(
-                    get_logger(),
-                    "Pruning tag ID %d because it "
-                    "appears more than once in the image.",
-                    id_current);
+                        get_logger(),
+                        "Pruning tag ID %d because it "
+                        "appears more than once in the image.",
+                        id_current);
                 duplicate_detected = false;
             }
             continue;
@@ -162,10 +162,10 @@ void AprilTagNode::removeDuplicates(zarray_t *detections_) {
 void AprilTagNode::onCamera(const sensor_msgs::msg::Image::ConstSharedPtr &msg_img) {
     const cv::Mat img_uint8 = cv_bridge::toCvShare(msg_img, "mono8")->image;
     image_u8_t im = {
-        .width = img_uint8.cols,
-        .height = img_uint8.rows,
-        .stride = img_uint8.cols,
-        .buf = img_uint8.data
+            .width = img_uint8.cols,
+            .height = img_uint8.rows,
+            .stride = img_uint8.cols,
+            .buf = img_uint8.data
     };
 
     double fx = camera_fx;  // focal length in camera x-direction [px]
@@ -195,11 +195,11 @@ void AprilTagNode::onCamera(const sensor_msgs::msg::Image::ConstSharedPtr &msg_i
         addObjectPoints(tag_half_size, cv::Matx44d::eye(), standaloneTagObjectPoints);
         addImagePoints(det, standaloneTagImagePoints);
         Eigen::Matrix4d transform =
-            getRelativeTransform(standaloneTagObjectPoints, standaloneTagImagePoints, fx, fy, cx, cy);
+                getRelativeTransform(standaloneTagObjectPoints, standaloneTagImagePoints, fx, fy, cx, cy);
         Eigen::Matrix3d rot = transform.block(0, 0, 3, 3);
         Eigen::Quaternion<double> rot_quaternion(rot);
         geometry_msgs::msg::TransformStamped tag_pose =
-            makeTagPose(transform, rot_quaternion, msg_img->header);
+                makeTagPose(transform, rot_quaternion, msg_img->header);
         tag_pose.child_frame_id = tag_frames.count(det->id) ?
                                   tag_frames.at(det->id) :
                                   std::string(det->family->name) + ":" + std::to_string(det->id);
@@ -219,7 +219,7 @@ void AprilTagNode::onCamera(const sensor_msgs::msg::Image::ConstSharedPtr &msg_i
 }
 
 void AprilTagNode::addObjectPoints(
-    double s, cv::Matx44d T_oi, std::vector<cv::Point3d> &objectPoints) const {
+        double s, cv::Matx44d T_oi, std::vector<cv::Point3d> &objectPoints) const {
     objectPoints.push_back(T_oi.get_minor<3, 4>(0, 0) * cv::Vec4d(-s, -s, 0, 1));
     objectPoints.push_back(T_oi.get_minor<3, 4>(0, 0) * cv::Vec4d(s, -s, 0, 1));
     objectPoints.push_back(T_oi.get_minor<3, 4>(0, 0) * cv::Vec4d(s, s, 0, 1));
@@ -227,7 +227,7 @@ void AprilTagNode::addObjectPoints(
 }
 
 void AprilTagNode::addImagePoints(
-    apriltag_detection_t *detection, std::vector<cv::Point2d> &imagePoints) const {
+        apriltag_detection_t *detection, std::vector<cv::Point2d> &imagePoints) const {
     double tag_x[4] = {-1, 1, 1, -1};
     double tag_y[4] = {1, 1, -1, -1};
     for (int i = 0; i < 4; i++) {
@@ -238,8 +238,8 @@ void AprilTagNode::addImagePoints(
 }
 
 Eigen::Matrix4d AprilTagNode::getRelativeTransform(
-    std::vector<cv::Point3d> objectPoints, std::vector<cv::Point2d> imagePoints, double fx, double fy,
-    double cx, double cy) const {
+        std::vector<cv::Point3d> objectPoints, std::vector<cv::Point2d> imagePoints, double fx, double fy,
+        double cx, double cy) const {
     cv::Mat rvec, tvec;
     cv::Matx33d cameraMatrix(fx, 0, cx, 0, fy, cy, 0, 0, 1);
     cv::Vec4f distCoeffs(0, 0, 0, 0);
@@ -260,8 +260,8 @@ Eigen::Matrix4d AprilTagNode::getRelativeTransform(
 }
 
 geometry_msgs::msg::TransformStamped AprilTagNode::makeTagPose(
-    const Eigen::Matrix4d &transform, const Eigen::Quaternion<double> rot_quaternion,
-    const std_msgs::msg::Header &header) {
+        const Eigen::Matrix4d &transform, const Eigen::Quaternion<double> rot_quaternion,
+        const std_msgs::msg::Header &header) {
     geometry_msgs::msg::TransformStamped tf_;
     tf_.header = header;
     tf_.transform.translation.x = transform(0, 3);
