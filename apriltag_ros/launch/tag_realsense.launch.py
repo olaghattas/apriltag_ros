@@ -35,7 +35,7 @@ from ament_index_python.packages import get_package_share_directory
 from launch.substitutions import LaunchConfiguration
 
 image_topic_ = LaunchConfiguration("image_topic", default="image_raw")
-camera_name = LaunchConfiguration("camera_name", default="/camera/color")
+camera_name = LaunchConfiguration("camera_name", default="camera/camera/color")
 
 image_topic = [camera_name, "/", image_topic_]
 # info_topic = [camera_name, "/camera_info"]
