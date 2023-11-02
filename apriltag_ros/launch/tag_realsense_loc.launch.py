@@ -35,7 +35,7 @@ from ament_index_python.packages import get_package_share_directory
 from launch.substitutions import LaunchConfiguration
 
 image_topic_ = LaunchConfiguration("image_topic", default="image_raw")
-camera_name = LaunchConfiguration("camera_name", default="/camera/color")
+camera_name = LaunchConfiguration("camera_name", default="/camera/camera/color")
 
 image_topic = [camera_name, "/", image_topic_]
 # info_topic = [camera_name, "/camera_info"]
@@ -46,13 +46,13 @@ config = os.path.join(
 
 
 def generate_launch_description():
-
     composable_node = ComposableNode(
-        name="apriltag",
+        name="apriltag_loc",
         package="apriltag_ros",
         plugin="AprilTagNode",
         parameters=[config],
-        remappings=[("/image", image_topic)],
+        remappings=[("/image", image_topic),
+                    ("/apriltag_detections", "/apriltag_detections_loc")],
     )
 
     container = ComposableNodeContainer(
