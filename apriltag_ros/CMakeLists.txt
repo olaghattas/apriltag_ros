@@ -49,6 +49,7 @@ ament_target_dependencies(tag_detector ${DEPENDENCIES})
 
 target_link_libraries(AprilTagNode apriltag::apriltag)
 target_link_libraries(tag_detector apriltag::apriltag)
+#target_link_libraries(${PROJECT_NAME} ${OpenCV_LIBS})
 
 rclcpp_components_register_nodes(AprilTagNode "AprilTagNode")
 
