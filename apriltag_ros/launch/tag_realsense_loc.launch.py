@@ -52,8 +52,7 @@ def generate_launch_description():
         package="apriltag_ros",
         plugin="AprilTagNode",
         parameters=[config],
-        remappings=[("/image", image_topic),
-                    ("/apriltag_detections", "/apriltag_detections_loc")],
+        remappings=[("/image", image_topic),],
     )
 
     container = ComposableNodeContainer(
