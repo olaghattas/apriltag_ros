@@ -27,8 +27,8 @@ def generate_launch_description():
     )
 
     container = ComposableNodeContainer(
-        name="tag_container",
-        namespace="apriltag",
+        name="tag_container_zed",
+        namespace="apriltag_zed",
         package="rclcpp_components",
         executable="component_container",
         composable_node_descriptions=[composable_node],
