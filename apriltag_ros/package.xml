@@ -22,7 +22,6 @@
   <depend>apriltag_msgs</depend>
   <depend>eigen</depend>
   <depend>apriltag</depend>
-  <depend>generate_parameter_library</depend>
 
 
   <test_depend>ament_lint_auto</test_depend>
