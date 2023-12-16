@@ -31,6 +31,7 @@ def generate_launch_description():
         namespace="apriltag_zed",
         package="rclcpp_components",
         executable="component_container",
+        prefix="gdbserver localhost:8009",
         composable_node_descriptions=[composable_node],
         output="screen",
     )
