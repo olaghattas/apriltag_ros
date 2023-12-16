@@ -11,7 +11,7 @@ camera_name = LaunchConfiguration("camera_name", default="/zed_" + os.environ.ge
 image_topic = [camera_name, "/", image_topic_]
 # info_topic = [camera_name, "/camera_info"]
 config = os.path.join(
-    get_package_share_directory("apriltag_ros"), "cfg", "tags_36h11_hewithall_zed.yaml"
+    get_package_share_directory("apriltag_ros"), "cfg", "tags_36h11_zed.yaml"
 )
 
 
@@ -31,7 +31,6 @@ def generate_launch_description():
         namespace="apriltag_zed",
         package="rclcpp_components",
         executable="component_container",
-        prefix="gdbserver localhost:8009",
         composable_node_descriptions=[composable_node],
         output="screen",
     )
