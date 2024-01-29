@@ -14,9 +14,9 @@ blur: 1.0               # sigma of Gaussian blur for quad detection
 refine-edges: 1         # snap to strong gradients
 debug: 0                # write additional debugging images to current working directory
 
-tag_ids: [ 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 16, 17, 18] # tag ID
-tag_frames: [tag_31_zed, tag_32_zed, tag_33_zed, tag_34_zed, tag_35_zed, tag_36_zed, tag_37_zed, tag_38_zed, tag_39_zed, tag_40_zed, tag_41_zed, tag_42_zed, tag_43_zed, tag_44_zed, tag_45_zed, tag_16_zed, tag_17_zed, tag_18_zed ]  # optional frame name
-tag_sizes: [ 0.14,  0.14, 0.14, 0.14, 0.14, 0.14, 0.14, 0.14, 0.14,  0.14, 0.14, 0.14, 0.14, 0.14, 0.14, 0.14, 0.14, 0.14]   # optional tag-specific edge size in meters
+tag_ids: [ 37, 38, 44] # tag ID
+tag_frames: [ tag_37_zed,  tag_38_zed,  tag_44_zed]  # optional frame name
+tag_sizes: [ 0.14,  0.14, 0.14]   # optional tag-specific edge size in meters
 
 # camera information zed
 camera_fx: 261.8006286621094

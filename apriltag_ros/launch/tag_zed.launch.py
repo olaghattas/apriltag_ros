@@ -5,7 +5,7 @@ import os
 from ament_index_python.packages import get_package_share_directory
 from launch.substitutions import LaunchConfiguration
 
-image_topic_ = LaunchConfiguration("image_topic", default="image_rect_color")
+image_topic_ = LaunchConfiguration("image_topic", default="image_raw_color")
 camera_name = LaunchConfiguration("camera_name", default="/zed_" + os.environ.get("cam_loc") + "/zed_node_" + os.environ.get("cam_loc")+"/left")
 
 image_topic = [camera_name, "/", image_topic_]
